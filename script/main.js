@@ -94,7 +94,7 @@ card.innerHTML = `
     <hr>
 
     <div class="text-sm text-gray-500 flex flex-col justify-between">
-        <span>${issue.author}</span>
+        <span>#${issue.author}</span>
         <span>${new Date(issue.createdAt).toLocaleDateString()}</span>
     </div>
 
