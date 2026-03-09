@@ -146,11 +146,11 @@ closeBtn.className="btn btn-outline"
 //           Modal
 //=============================
 async function openModal(id){
-
+//==========================================================
 const res = await fetch(
 `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
 )
-
+//==========================================================
 const data = await res.json()
 const issue = data.data
 
@@ -210,4 +210,47 @@ issueModal.showModal()
 
 }
 
+//========================================
+// Search button functionality
+//=======================================
+document.getElementById("searchBtn").addEventListener("click", async function() {
+    const searchInput = document.getElementById("searchInput")
+    const text = searchInput.value.trim()
+    
+    loader.classList.remove("hidden")
+    
+    if(text === "") {
+        displayIssues(allIssues)
+        
+        toggleStyle("all")
+        loader.classList.add("hidden")
+        return
+    }
+    //=========================================================================
+    const res = await fetch(
+        `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${text}`
+    )
+    //========================================================================
+    const data = await res.json()
+    
+    if(data.data && data.data.length > 0) {
+        displayIssues(data.data)
+        document.getElementById("issueCount").innerText = data.data.length + " Search Results"
+    } else {
+        container.innerHTML = `
+            <div class="col-span-full text-center py-10">
+                <p class="text-gray-500">No issues found matching "${text}"</p>
+            </div>
+        `
+        document.getElementById("issueCount").innerText = "0 Results"
+    }
+    
+    loader.classList.add("hidden")
+})
 
+// Enter key support
+document.getElementById("searchInput").addEventListener("keypress", function(event) {
+    if(event.key === "Enter") {
+        document.getElementById("searchBtn").click()
+    }
+})
