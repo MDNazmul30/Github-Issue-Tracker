@@ -86,9 +86,12 @@
 
 
         <!-- Loader -->
-        <div id="loader" class="text-center mt-10 hidden">
-            <span class="loading loading-spinner loading-lg"></span>
-        </div>
+ <!-- Make your spinner bigger and add text -->
+<div id="loader" class="hidden flex flex-col items-center justify-center py-10">
+    <span class="loading loading-spinner loading-lg text-primary"></span>
+    <p class="mt-4 text-lg font-semibold text-gray-600">Loading issues...</p>
+    <p class="text-sm text-gray-400">Please wait</p>
+</div>
 
 
         <!-- Issue Grid -->
@@ -131,7 +134,7 @@
 
             <div class="modal-action">
                 <form method="dialog">
-                    <button class="btn">Close</button>
+                    <button class="btn btn-primary">Close</button>
                 </form>
             </div>
 

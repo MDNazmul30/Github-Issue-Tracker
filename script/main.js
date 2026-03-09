@@ -9,22 +9,25 @@ const allBtn = document.getElementById("allBtn")
 const openBtn = document.getElementById("openBtn")
 const closeBtn = document.getElementById("closeBtn")
 
-
+//===========================================
 // load issues
+//===========================================
 async function loadIssues(){
+loader.classList.remove("hidden")
+console.log("1. Loader visible - check the screen!")
 
-     loader.classList.remove("hidden")
+// Force a 3-second delay so you can SEE the spinner
+await new Promise(resolve => setTimeout(resolve, 1000))
 
-     const res = await fetch(API)
-     const data = await res.json()
+const res = await fetch(API)
+const data = await res.json()
 
-    allIssues = data.data
-
+allIssues = data.data
 displayIssues(allIssues)
-
-// Set initial count
 document.getElementById("issueCount").innerText = allIssues.length + " Total Issues"
-   loader.classList.add("hidden")
+
+loader.classList.add("hidden")
+console.log("2. Loader hidden")
 
 }
 loadIssues()
@@ -139,4 +142,72 @@ closeBtn.className="btn btn-outline"
 }
 
 }
+//=============================
+//           Modal
+//=============================
+async function openModal(id){
+
+const res = await fetch(
+`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`
+)
+
+const data = await res.json()
+const issue = data.data
+
+document.getElementById("modalTitle").innerText = issue.title
+document.getElementById("modalDesc").innerText = issue.description
+
+const status = document.getElementById("modalStatus")
+status.innerText = issue.status
+
+       if(issue.status==="open"){
+          status.className="badge badge-success"
+       }else{
+          status.className="badge badge-secondary"
+       }
+
+       document.getElementById("modalAuthor").innerText =
+          `by ${issue.author}`
+
+document.getElementById("modalDate").innerText =
+new Date(issue.createdAt).toLocaleDateString()
+
+document.getElementById("modalPriority").innerText =
+issue.priority
+
+document.getElementById("modalassign").innerText =
+issue.assignee || "Unassigned"
+
+
+// Show each label as separate badge with different colors
+const labelsContainer = document.getElementById("modalLabelsContainer")
+labelsContainer.innerHTML = "" 
+
+issue.labels.forEach((label, index) => {
+    const labelBadge = document.createElement("span")
+    labelBadge.className = "badge gap-2"
+    
+    // Different colors for different labels
+    if(label.includes("bug")){
+        labelBadge.classList.add("badge-error", "text-white")
+    } else if(label.includes("enhancement")){
+        labelBadge.classList.add("badge-info", "text-white")
+    } else if(label.includes("documentation")){
+        labelBadge.classList.add("badge-primary", "text-white")
+    } else if(label.includes("help wanted")){
+        labelBadge.classList.add("badge-warning")
+    } else if(label.includes("good first issue")){
+        labelBadge.classList.add("badge-success", "text-white")
+    } else {
+        labelBadge.classList.add("badge-outline")
+    }
+    
+    labelBadge.innerText = label
+    labelsContainer.appendChild(labelBadge)
+})
+
+issueModal.showModal()
+
+}
+
 
