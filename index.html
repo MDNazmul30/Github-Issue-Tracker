@@ -6,38 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <!-- Taiwind lonk -->
+    <!-- Tailwind + DaisyUI -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="h-screen flex items-center justify-center  bg-[#F8FAFC] ">
+<body class="min-h-screen flex items-center justify-center bg-[#F8FAFC] p-4">
 
-        <fieldset class="fieldset bg-[#FFFFFF] rounded-box  w-[430px] h-[80%] p-4 sm:md:max-h-[80%] sm-[80%] ">
-        <div class=" text-center my-8">
-            <img class="mx-auto  mb-8" src="./assets/github-logo.png" alt="">
-            <h1 class="font-bold text-2xl"> Github Issues Tracker</h1>
-            <p class="font-semibold opacity-75 text-[15px]">Sign in to manage your issues</p>
+    <form id="loginForm" class="w-full max-w-md mx-auto">
+        <fieldset class="fieldset bg-[#FFFFFF] rounded-box w-full p-4 sm:p-6 shadow-lg">
+            
+            <!-- Logo Section - responsive sizing -->
+            <div class="text-center my-4 sm:my-8">
+                <img class="mx-auto mb-4 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20" 
+                     src="./assets/github-logo.png" 
+                     alt="GitHub Logo">
+                <h1 class="font-bold text-xl sm:text-2xl md:text-3xl">Github Issues Tracker</h1>
+                <p class="font-semibold opacity-75 text-sm sm:text-base">Sign in to manage your issues</p>
+            </div>
 
-        </div>
-  <label class="label font-bold text-black text-[15px]">Username</label>
-  <input type="text" class="input mx-auto w-full h-15" placeholder="Username" />
-  <label class="label font-bold text-blue-800">Username: admin</label>
+            <!-- Username Field -->
+            <label for="userName" class="label font-bold text-black text-sm sm:text-base">Username</label>
+            <input type="text" 
+                   minlength="5" 
+                   maxlength="5" 
+                   id="userName" 
+                   autocomplete="username"
+                   class="input mx-auto w-full h-12 sm:h-15 text-sm sm:text-base"
+                   placeholder="Username" />
+            <label class="label font-bold text-blue-800 text-xs sm:text-sm">Username: admin</label>
 
-  <label class="label font-bold text-black text-[15px]">Password</label>
-  <input type="password" class="input mx-auto w-full h-15" placeholder="Password" />
-<label class="label font-bold text-blue-800 ">password: admin123</label>
-  <button class="btn btn-neutral mt-4 bg-blue-700">Sign in</button>
-        <hr class="my-4">
-<div class="text-center">
-    <p class="mb-8 opacity-70">Demo Credentials: </p>
-            <h1><span class="font-bold">Username:</span> admin</h1>
-        <h1>
-            <span class="font-bold">Password:</span> admin123</h1>
-</div>
-    </fieldset>
+            <!-- Password Field -->
+            <label for="password" class="label font-bold text-black text-sm sm:text-base">Password</label>
+            <input type="password" 
+                   minlength="8" 
+                   maxlength="8" 
+                   id="password" 
+                   autocomplete="current-password"
+                   class="input mx-auto w-full h-12 sm:h-15 text-sm sm:text-base"
+                   placeholder="Password" />
+            <label class="label font-bold text-blue-800 text-xs sm:text-sm">password: admin123</label>
 
+            <!-- Sign In Button -->
+            <button id="signinBtn" 
+                    class="btn btn-neutral mt-4 bg-blue-700 w-full sm:w-auto sm:px-8 text-sm sm:text-base">
+                Sign in
+            </button>
 
+            <hr class="my-4">
+
+            <!-- Demo Credentials - responsive text -->
+            <div class="text-center">
+                <p class="mb-4 opacity-70 text-sm sm:text-base">Demo Credentials:</p>
+                <div class="space-y-1">
+                    <p class="text-sm sm:text-base">
+                        <span class="font-bold">Username:</span> admin
+                    </p>
+                    <p class="text-sm sm:text-base">
+                        <span class="font-bold">Password:</span> admin123
+                    </p>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+    <script src="./script/login.js"></script>
 </body>
 
 </html>
