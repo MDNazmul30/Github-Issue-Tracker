@@ -94,7 +94,7 @@ card.innerHTML = `
         ${labelsHTML}
     </div>
 
-    <hr>
+   <hr class="my-4 flex-1 opacity-75 border-t border-gray-300">
 
     <div class="text-sm text-gray-500 flex flex-col justify-between">
         <span>#${issue.author}</span>
